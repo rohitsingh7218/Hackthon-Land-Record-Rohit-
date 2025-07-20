@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact Us – Binary Bosses</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+  <style>
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: #f8f9fa;
+      color: #333;
+      padding-top: 70px;
+    }
+    .navbar {
+      background: #1a1a1a;
+    }
+    .navbar a {
+      color: #fff;
+      font-weight: 600;
+      margin-right: 15px;
+      text-decoration: none;
+    }
+    .contact-banner {
+      background: #007BFF;
+      color: #fff;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .contact-banner h1 {
+      font-size: 48px;
+      font-weight: 700;
+    }
+    .section-title {
+      margin: 50px 0 30px;
+      text-align: center;
+    }
+    .section-title h2 {
+      font-size: 32px;
+      font-weight: 700;
+      color: #007BFF;
+    }
+    .contact-form {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      margin-bottom: 30px;
+    }
+    .contact-info {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .contact-info .icon {
+      font-size: 1.5rem;
+      color: #007BFF;
+      margin-right: 10px;
+    }
+    .map-container {
+      margin-top: 30px;
+    }
+    .footer {
+      background: #1a1a1a;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar fixed-top">
+    <div class="container">
+      <a href="#">Home</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact</a>
+      <a href="#">Services</a>
+    </div>
+  </nav>
+
+  <!-- Banner -->
+  <section class="contact-banner">
+    <h1>Contact Us</h1>
+    <p>We’d love to hear from you—questions, feedback or partnership inquiries.</p>
+  </section>
+
+  <div class="container">
+
+    <!-- Contact Form -->
+    <div class="contact-form">
+      <div class="section-title">
+        <h2>Get in Touch</h2>
+      </div>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="name">Your Name</label>
+            <input type="text" class="form-control" id="name" placeholder="John Doe" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email">Email Address</label>
+            <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="subject">Subject</label>
+          <input type="text" class="form-control" id="subject" placeholder="Subject of your message" required>
+        </div>
+        <div class="form-group">
+          <label for="message">Your Message</label>
+          <textarea class="form-control" id="message" rows="6" placeholder="Write your message here..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Message</button>
+      </form>
+    </div>
+
+    <!-- Contact Information -->
+    <div class="contact-info row">
+      <div class="col-md-4 text-center mb-4">
+        <i class="fas fa-map-marker-alt icon"></i>
+        <h5>Our Office</h5>
+        <p>Sandip University<br/>Nashik, Maharashtra<br/>India</p>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <i class="fas fa-envelope icon"></i>
+        <h5>Email Us</h5>
+        <p>support@binarybosses.com<br/>info@binarybosses.com</p>
+      </div>
+      <div class="col-md-4 text-center mb-4">
+        <i class="fas fa-phone icon"></i>
+        <h5>Call Us</h5>
+        <p>+91 98765 43210<br/>+91 91234 56789</p>
+      </div>
+    </div>
+
+    <!-- Google Map Embed -->
+    <div class="map-container">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.4736175801134!2d73.76220811533797!3d19.9974531870241!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3beffb49f4c4f521%3A0x8f0f0d2c3b2a8f1f!2sSandip%20University!5e0!3m2!1sen!2sin!4v1600000000000"
+        width="100%" height="300" frameborder="0" style="border:0; border-radius:8px;"
+        allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    © 2025 Binary Bosses | All Rights Reserved
+  </footer>
+
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+                    

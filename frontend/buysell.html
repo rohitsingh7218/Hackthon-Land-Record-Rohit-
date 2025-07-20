@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browse Properties - Dream Property</title>
+  <link rel="stylesheet" href="buysell.css">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f3f4f6;
+    }
+
+    header {
+      background-color: #312e81;
+      color: white;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #facc15;
+    }
+
+    nav a {
+      color: white;
+      margin-left: 20px;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    h2 {
+      text-align: center;
+      margin-top: 30px;
+      color: #1f2937;
+    }
+
+    .properties-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 30px 40px;
+    }
+
+    .property-card {
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .property-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .property-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .property-details {
+      padding: 15px;
+    }
+
+    .property-details h3 {
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+      color: #111827;
+    }
+
+    .property-details p {
+      margin: 4px 0;
+      font-size: 0.9rem;
+      color: #374151;
+    }
+
+    .price {
+      color: #16a34a;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">DreamProperty</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="#">Contact</a>
+      <a href="#">Login</a>
+    </nav>
+  </header>
+
+  <h2>Explore Properties to Buy or Sell</h2>
+
+  <div class="properties-container">
+    <!-- Example Property Card - Repeat similar blocks for more -->
+    <!-- Example 1 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?house" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>3BHK Villa in Pune</h3>
+        <p class="price">₹85,00,000</p>
+        <p>Location: Baner, Pune</p>
+        <p>Area: 1600 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 2 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?apartment" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>2BHK Flat for Sale</h3>
+        <p class="price">₹52,00,000</p>
+        <p>Location: Whitefield, Bangalore</p>
+        <p>Area: 1200 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 3 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?real-estate" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Farm Land for Sale</h3>
+        <p class="price">₹30,00,000</p>
+        <p>Location: Nashik Road</p>
+        <p>Area: 1 acre</p>
+      </div>
+    </div>
+
+    <!-- Example 4 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?home,4" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>1RK Studio Apartment</h3>
+        <p class="price">₹25,00,000</p>
+        <p>Location: Andheri East, Mumbai</p>
+        <p>Area: 550 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 5 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?modern,home" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Luxury 4BHK Flat</h3>
+        <p class="price">₹1,20,00,000</p>
+        <p>Location: Khar, Mumbai</p>
+        <p>Area: 2500 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 6 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?villa" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Sea-facing Villa</h3>
+        <p class="price">₹3,50,00,000</p>
+        <p>Location: Marine Drive, Mumbai</p>
+        <p>Area: 4500 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 7 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?office" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Commercial Office Space</h3>
+        <p class="price">₹80,00,000</p>
+        <p>Location: BKC, Mumbai</p>
+        <p>Area: 1500 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 8 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?apartment" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>1BHK Apartment</h3>
+        <p class="price">₹40,00,000</p>
+        <p>Location: Malad, Mumbai</p>
+        <p>Area: 800 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 9 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?house,2" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Independent House for Sale</h3>
+        <p class="price">₹55,00,000</p>
+        <p>Location: Aundh, Pune</p>
+        <p>Area: 1200 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 10 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?luxury,home" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Luxury 5BHK Mansion</h3>
+        <p class="price">₹4,50,00,000</p>
+        <p>Location: South Mumbai</p>
+        <p>Area: 8000 sqft</p>
+      </div>
+    </div>
+
+    <!-- Example 11 to 20 (repeat with new details) -->
+    <!-- Add remaining properties here by repeating the structure similar to Example 1 to 10 -->
+    <!-- Placeholder for 11-20 -->
+    <div class="property-card">
+      <img src="https://source.unsplash.com/featured/?mansion" class="property-image" alt="Property Image">
+      <div class="property-details">
+        <h3>Luxury Mansion</h3>
+        <p class="price">₹3,50,00,000</p>
+        <p>Location: Juhu, Mumbai</p>
+        <p>Area: 7000 sqft</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
+

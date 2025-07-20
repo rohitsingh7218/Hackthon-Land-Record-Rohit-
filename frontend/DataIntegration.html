@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Integration - Stage 3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 80%;
+            max-width: 1000px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .data-table {
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .status-message {
+            padding: 10px;
+            background-color: #e7f9e7;
+            color: #2e7d32;
+            text-align: center;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Add a spinner */
+        .loading-spinner {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loading-spinner.show {
+            display: block;
+        }
+
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Data Integration - Stage 3</h1>
+
+        <div class="data-table">
+            <table id="dataTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Type</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data rows will be populated here -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="buttons">
+            <button id="processDataButton">Process and Integrate Data</button>
+            <button id="exportCSVButton">Export to CSV</button>
+        </div>
+
+        <div id="statusMessage" class="status-message"></div>
+
+        <div class="loading-spinner" id="loadingSpinner">
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <script>
+        // Sample data from multiple sources (with Indian-style names, addresses, and date-time)
+        const ruralData = [
+            { id: 1, name: 'Ravi Kumar', address: 'Village A, Uttar Pradesh', type: 'Rural', date: '2025-04-25 14:30', status: 'Completed' },
+            { id: 2, name: 'Priya Sharma', address: 'Village B, Haryana', type: 'Rural', date: '2025-04-26 10:00', status: 'Pending' },
+        ];
+
+        const urbanData = [
+            { id: 3, name: 'Anjali Iyer', address: 'Mumbai, Maharashtra', type: 'Urban', date: '2025-04-27 16:45', status: 'Completed' },
+            { id: 4, name: 'Sandeep Patel', address: 'Ahmedabad, Gujarat', type: 'Urban', date: '2025-04-28 09:30', status: 'Pending' },
+        ];
+
+        const cersaiData = [
+            { id: 5, name: 'Raghav Mehta', address: 'Chennai, Tamil Nadu', type: 'CERSAI', date: '2025-04-29 11:00', status: 'Completed' },
+            { id: 6, name: 'Simran Kaur', address: 'Amritsar, Punjab', type: 'CERSAI', date: '2025-04-29 15:00', status: 'Pending' },
+        ];
+
+        const mca21Data = [
+            { id: 7, name: 'Vikram Reddy', address: 'Hyderabad, Telangana', type: 'MCA21', date: '2025-04-29 18:20', status: 'Completed' },
+            { id: 8, name: 'Neha Joshi', address: 'Bangalore, Karnataka', type: 'MCA21', date: '2025-04-30 08:00', status: 'Pending' },
+        ];
+
+        // Function to normalize date formats and add time
+        function normalizeDate(date) {
+            const dateFormats = [
+                /\d{4}-\d{2}-\d{2} \d{2}:\d{2}/, // yyyy-mm-dd hh:mm
+                /\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}/, // dd/mm/yyyy hh:mm
+                /\d{2}-\d{2}-\d{4} \d{2}:\d{2}/  // dd-mm-yyyy hh:mm
+            ];
+
+            for (let format of dateFormats) {
+                if (format.test(date)) {
+                    let normalizedDate = new Date(date);
+                    return normalizedDate.toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+                }
+            }
+            return date; // Return original if not matched
+        }
+
+        // Function to integrate data
+        function integrateData() {
+            let integratedData = [...ruralData, ...urbanData, ...cersaiData, ...mca21Data];
+
+            // Handle missing fields
+            integratedData = integratedData.map(item => {
+                return {
+                    ...item,
+                    address: item.address || 'N/A',  // Default value for missing address
+                    status: item.status || 'Not Available',  // Default value for missing status
+                    date: normalizeDate(item.date)
+                };
+            });
+
+            return integratedData;
+        }
+
+        // Function to display data
+        function displayData(data) {
+            const tableBody = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = ''; // Clear the table
+
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+
+                Object.values(row).forEach(value => {
+                    const td = document.createElement('td');
+                    td.textContent = value;
+                    tr.appendChild(td);
+                });
+
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Toggle loading spinner
+        function toggleLoadingSpinner(show) {
+            const spinner = document.getElementById('loadingSpinner');
+            if (show) {
+                spinner.classList.add('show');
+            } else {
+                spinner.classList.remove('show');
+            }
+        }
+
+        // Export to CSV
+        function exportToCSV(data) {
+            const csvRows = [];
+            const headers = Object.keys(data[0]);
+            csvRows.push(headers.join(','));
+
+            data.forEach(row => {
+                const values = headers.map(header => row[header]);
+                csvRows.push(values.join(','));
+            });
+
+            const csvContent = csvRows.join('\n');
+            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = 'integrated_data.csv';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Event listener for Process Data button
+        document.getElementById('processDataButton').addEventListener('click', () => {
+            toggleLoadingSpinner(true);
+            const data = integrateData();
+            displayData(data);
+            toggleLoadingSpinner(false);
+            document.getElementById('statusMessage').textContent = 'Data integration successful!';
+        });
+
+        // Event listener for Export to CSV button
+        document.getElementById('exportCSVButton').addEventListener('click', () => {
+            const data = integrateData();
+            exportToCSV(data);
+        });
+    </script>
+</body>
+</html>

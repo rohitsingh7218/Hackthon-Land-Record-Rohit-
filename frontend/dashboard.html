@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+  <div class="flex">
+    <!-- Sidebar -->
+    <aside class="sidebar w-64 bg-white shadow-md hidden md:block">
+      <div class="p-6 text-xl font-semibold border-b">🏛️ Property Registry</div>
+      <nav class="p-4 space-y-4">
+        <a href="#" class="block text-blue-600 font-medium">Dashboard</a>
+        <a href="#" class="block hover:text-blue-600">Register Property</a>
+        <a href="#" class="block hover:text-blue-600">Search Records</a>
+        <a href="#" class="block hover:text-blue-600">Users</a>
+        <a href="#" class="block hover:text-blue-600">Reports</a>
+      </nav>
+    </aside>
+
+    <!-- Main content -->
+    <main class="flex-1 p-6">
+      <!-- Topbar -->
+      <div class="flex justify-between items-center mb-6">
+        <h1 class="text-2xl font-semibold">Dashboard</h1>
+        <div class="flex items-center gap-4">
+          <span class="text-sm">Welcome, Admin</span>
+          <img src="https://i.pravatar.cc/40?img=3" alt="Avatar" class="w-8 h-8 rounded-full">
+        </div>
+      </div>
+
+      <!-- Stats cards -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <h2 class="text-gray-500 text-sm">Total Properties</h2>
+          <p class="text-2xl font-bold mt-1">1,243</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <h2 class="text-gray-500 text-sm">New Registrations</h2>
+          <p class="text-2xl font-bold mt-1">57</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <h2 class="text-gray-500 text-sm">Pending Reviews</h2>
+          <p class="text-2xl font-bold mt-1">12</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition">
+          <h2 class="text-gray-500 text-sm">Active Users</h2>
+          <p class="text-2xl font-bold mt-1">389</p>
+        </div>
+      </div>
+
+      <!-- Export and Activity -->
+      <div class="bg-white p-6 rounded-xl shadow mb-6">
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-xl font-semibold">Recent Activity</h2>
+          <div class="flex gap-4">
+            <button onclick="exportToPDF()" class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">Export PDF</button>
+            <button onclick="exportToExcel()" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">Export Excel</button>
+          </div>
+        </div>
+        <ul class="divide-y" id="activityList">
+          <li class="py-2">📝 Property IN-PROP-1234 was registered by <strong>R. Sharma</strong></li>
+          <li class="py-2">📁 Property search performed by <strong>A. Khan</strong></li>
+          <li class="py-2">🔍 Verification pending for property IN-PROP-9843</li>
+        </ul>
+        <p id="noData" class="text-red-500 hidden mt-4">No activity data found.</p>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // PDF export
+    async function exportToPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF();
+      const list = document.querySelectorAll("#activityList li");
+      if (list.length === 0) {
+        alert("No data to export.");
+        return;
+      }
+      doc.text("Recent Activity", 10, 10);
+      list.forEach((li, i) => {
+        doc.text(li.innerText, 10, 20 + i * 10);
+      });
+      doc.save("activity.pdf");
+    }
+
+    // Excel export
+    function exportToExcel() {
+      const list = document.querySelectorAll("#activityList li");
+      if (list.length === 0) {
+        alert("No data to export.");
+        return;
+      }
+      const wb = XLSX.utils.book_new();
+      const data = [["Activity"]];
+      list.forEach(li => {
+        data.push([li.innerText]);
+      });
+      const ws = XLSX.utils.aoa_to_sheet(data);
+      XLSX.utils.book_append_sheet(wb, ws, "Activity");
+      XLSX.writeFile(wb, "activity.xlsx");
+    }
+
+    // Error handling check
+    window.onload = function () {
+      const list = document.querySelectorAll("#activityList li");
+      if (list.length === 0) {
+        document.getElementById("noData").classList.remove("hidden");
+      }
+    };
+  </script>
+</body>
+</html
